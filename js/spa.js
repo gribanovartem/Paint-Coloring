@@ -36,7 +36,7 @@
         break;
       case 'Paint':
             $.ajax("html/paint.html",
-                { type:'GET', dataType:'html', success:dataLoaded, error:errorHandler }
+                { type:'GET', dataType:'html', success:dataLoaded1, error:errorHandler }
             );
         break;
       case 'SelectImg':
@@ -54,6 +54,9 @@
         mainMenu[0].addEventListener('click',switchToPaintPage);
         mainMenu[1].addEventListener('click',switchToSelectImgPage);
         mainMenu[2].addEventListener('click',switchToLoadPage);
+    }
+    function dataLoaded1(data) {
+      document.getElementById('IPage').innerHTML=data;
     }
     function errorHandler(jqXHR,statusStr,errorStr) {
         alert(statusStr+' '+errorStr);
@@ -75,7 +78,6 @@
     switchToState( { pagename:'Main' } );
   }
   function switchToPaintPage() {
-    console.log('dfhgs');
     switchToState( { pagename:'Paint' } );
   }
   function switchToSelectImgPage() {
