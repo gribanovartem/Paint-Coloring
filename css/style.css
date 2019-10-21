@@ -84,14 +84,48 @@ html {
     border: 1px solid black;
     background-color: beige;
 }
-.rightPanel div {
+.rightPanel>div {
     width: 72px;
     height: 72px;
     background: url("../img/tb_72.png");
 }
-.rightPanel div:hover {
+.rightPanel>div:hover {
     background:  url(../img/tb_72.png) dimgray;
     border-radius: 15%;
+}
+.canvas .rightPanel .range {
+    background: none;
+    display: flex;
+}
+.canvas .rightPanel .range:hover {
+    background: dimgray;
+}
+.rangeItem {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: greenyellow;
+    margin: auto;
+    text-align: center;
+    line-height: 5.3rem;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.range input  {
+    display: none;
+    position: absolute;
+    top: 238px;
+    right: 15px;
+    width: 150px;
+    transform: rotate(270deg);
+}
+#hider {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+#hider:checked + .box  {
+    display: inline-block;
 }
 .rightPanel .brushElem,
 .rightPanel .brushElem:hover,
@@ -103,6 +137,21 @@ html {
 .rightPanel .coloring:active {
     background-position: 66px -7px;
 }
+.rightPanel .clean,
+.rightPanel .clean:hover,
+.rightPanel .clean:active {
+    background-position: 68px -219px;
+}
+.rightPanel .cancel,
+.rightPanel .cancel:hover,
+.rightPanel .cancel:active {
+    background-position: 70px -361px;
+}
+.rightPanel .save,
+.rightPanel .save:hover,
+.rightPanel .save:active {
+    background-position:  70px -718px;
+}
 .bottomPanel {
     display: flex;
     flex-wrap: wrap;
@@ -113,6 +162,7 @@ html {
     height: 13rem;
     background: beige;
     overflow-y: auto;
+    align-content: flex-start;
 }
 .bottomPanel div {
     width: 5rem;

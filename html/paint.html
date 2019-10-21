@@ -4,6 +4,16 @@
     <div class="rightPanel">
         <div class="brushElem"></div>
         <div class="coloring"></div>
+        <div class="clean"></div>
+        <div class="range">
+            <label class="rangeItem" for="hider" id="clickme">
+                <div class="rangeItem"><output name="ageOutputName" id="ageOutputId">5</output></div>
+            </label>
+            <input type="checkbox" id="hider">
+            <input class="box" type="range" name="ageInputName" id="InputId" value="5" min="1" max="12" oninput="ageOutputId.value = InputId.value">
+        </div>
+        <div class="cancel"></div>
+        <div class="save"></div>
     </div>
     <div class="bottomPanel">
             <div class="brush" data-color="#000000" data-pos-x="-0rem" style="background-position: 0rem center;"></div>

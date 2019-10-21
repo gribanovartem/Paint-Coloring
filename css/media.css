@@ -31,15 +31,6 @@
     .bottomPanel {
         bottom: -73px;
     }
-    /* .canvas {
-        width: 75vw;
-        height: 70vh;
-        margin: 0 20% 0 8%;
-    }
-    .canv {
-        width: 75vw;
-        height: 70vh;
-    } */
 }
 @media screen and (max-width: 600px) {
     html {
@@ -69,15 +60,23 @@
         width: 75vw;
         height: 70vh;
     }
+    .rangeItem {
+        width: 30px;
+        height: 30px;
+    }
+    .range input  {
+        right: -20px;
+        top: 115px;
+    }
     .rightPanel .selected {
         background:  url(../img/tb_36.png) dimgray;
     }
-    .rightPanel div {
+    .rightPanel>div {
         width: 36px;
         height: 36px;
         background: url("../img/tb_36.png");
     }
-    .rightPanel div:hover {
+    .rightPanel>div:hover {
         background:  url(../img/tb_36.png) dimgray;
     }
     .rightPanel {
@@ -93,6 +92,21 @@
     .rightPanel .coloring:hover,
     .rightPanel .coloring:active {
         background-position: 35px -3px;
+    }
+    .rightPanel .clean,
+    .rightPanel .clean:hover,
+    .rightPanel .clean:active {
+        background-position: 35px -110px;
+    }
+    .rightPanel .cancel,
+    .rightPanel .cancel:hover,
+    .rightPanel .cancel:active {
+        background-position: 37px 286px;
+    }
+    .rightPanel .save,
+    .rightPanel .save:hover,
+    .rightPanel .save:active {
+        background-position:  37px -829px;
     }
     .bottomPanel {
         width: calc(75vw + 36px);
@@ -128,15 +142,23 @@
         width: 75vw;
         height: 70vh;
     }
+    .rangeItem {
+        width: 30px;
+        height: 30px;
+    }
+    .range input  {
+        right: -20px;
+        top: 115px;
+    }
     .rightPanel .selected {
         background:  url(../img/tb_36.png) dimgray;
     }
-    .rightPanel div {
+    .rightPanel>div {
         width: 36px;
         height: 36px;
         background: url("../img/tb_36.png");
     }
-    .rightPanel div:hover {
+    .rightPanel>div:hover {
         background:  url(../img/tb_36.png) dimgray;
     }
     .rightPanel {
@@ -152,6 +174,21 @@
     .rightPanel .coloring:hover,
     .rightPanel .coloring:active {
         background-position: 35px -3px;
+    }
+    .rightPanel .clean,
+    .rightPanel .clean:hover,
+    .rightPanel .clean:active {
+        background-position: 35px -110px;
+    }
+    .rightPanel .cancel,
+    .rightPanel .cancel:hover,
+    .rightPanel .cancel:active {
+        background-position: 37px 286px;
+    }
+    .rightPanel .save,
+    .rightPanel .save:hover,
+    .rightPanel .save:active {
+        background-position:  37px -829px;
     }
     .bottomPanel {
         width: calc(75vw + 36px);
