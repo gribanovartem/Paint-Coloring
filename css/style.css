@@ -1,0 +1,123 @@
+html {
+    font-size: 9px;
+}
+.main {
+    width: 100vw;
+    height: 100vh;
+    background: url("../img/main_bg.jpg") no-repeat;
+    background-size: cover;
+    position: relative;
+}
+ h1 {
+    font-family: 'Caveat', cursive;
+    color: darkslategray;
+    text-align: center;
+    font-size: 87px;
+    margin: 0;
+    /* background-color: antiquewhite; */
+}
+.mainMenu {
+    margin-top: 5%;
+    font-family: 'Caveat', cursive;
+    text-align: center;
+}
+.mainMenu span {
+    display: inline-block;
+    transition: transform 0.5s;
+    font-size: 57px;
+}
+.mainMenu span:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+#ball1,#ball2{
+    position: absolute;
+    width: 200px;
+    z-index: 1;
+}
+#ball1 {
+    top: 10%;
+    left: 10%;
+}
+#ball2 {
+    bottom: 10%;
+    right: 10%;
+}
+.canvas {
+    position: relative;
+    width: 60vw;
+    height: 60vh;
+    margin: 0 20% 0 15%;
+    z-index: 5;
+    background-color: white;
+}
+.canv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+    width: 60vw;
+    height: 60vh;
+    margin: 0 auto;
+}
+.canv1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+.rightPanel .selected {
+    background:  url(../img/tb_72.png) dimgray;
+}
+.bottomPanel .selected {
+    background:  url(../img/all-brushes.png) dimgray;
+    background-size: cover;
+}
+.rightPanel {
+    position: absolute;
+    height: 60vh;
+    right: -74px;
+    border: 1px solid black;
+    background-color: beige;
+}
+.rightPanel div {
+    width: 72px;
+    height: 72px;
+    background: url("../img/tb_72.png");
+}
+.rightPanel div:hover {
+    background:  url(../img/tb_72.png) dimgray;
+    
+}
+.rightPanel .brushElem,
+.rightPanel .brushElem:hover,
+.rightPanel .brushElem:active {
+    background-position: 70px -83px;
+}
+.rightPanel .coloring,
+.rightPanel .coloring:hover,
+.rightPanel .coloring:active {
+    background-position: 66px -7px;
+}
+.bottomPanel {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(60vw + 72px);
+    position: absolute;
+    bottom: -118px;
+    border: 1px solid black;
+    height: 13rem;
+    background: beige;
+}
+.bottomPanel div {
+    width: 5rem;
+    height: 5rem;
+    /* border: 1px solid black; */
+    background: url("../img/all-brushes.png");
+    background-size: cover;
+}
+.bottomPanel div:hover {
+    background:  url(../img/all-brushes.png) dimgray;
+    background-size: cover;
+}

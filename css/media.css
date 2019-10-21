@@ -1,0 +1,154 @@
+@media screen and (max-width: 1200px) {
+    h1 {
+        font-size: 65px;
+    }
+    .mainMenu {
+        margin-top: 15%;
+    }
+    .mainMenu span {
+        font-size: 47px;
+    }
+    #ball1,#ball2{
+        width: 150px;
+    }
+}
+@media screen and (max-width: 900px) {
+    html {
+        font-size: 6px;
+    }
+    h1 {
+        font-size: 55px;
+    }
+    .mainMenu {
+        margin-top: 25%;
+    }
+    .mainMenu span {
+        font-size: 42px;
+    }
+    #ball1,#ball2{
+        width: 120px;
+    }
+    .bottomPanel {
+        bottom: -73px;
+    }
+    /* .canvas {
+        width: 75vw;
+        height: 70vh;
+        margin: 0 20% 0 8%;
+    }
+    .canv {
+        width: 75vw;
+        height: 70vh;
+    } */
+}
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 6px;
+    }
+    h1 {
+        font-size: 45px;
+    }
+    .mainMenu {
+        margin-top: 35%;
+    }
+    .mainMenu span {
+        font-size: 36px;
+    }
+    #ball1,#ball2{
+        width: 100px;
+    }
+    .canvas {
+        width: 75vw;
+        height: 70vh;
+        margin: 0 20% 0 8%;
+    }
+    .canv {
+        width: 75vw;
+        height: 70vh;
+    }
+    .rightPanel .selected {
+        background:  url(../img/tb_36.png) dimgray;
+    }
+    .rightPanel div {
+        width: 36px;
+        height: 36px;
+        background: url("../img/tb_36.png");
+    }
+    .rightPanel div:hover {
+        background:  url(../img/tb_36.png) dimgray;
+    }
+    .rightPanel {
+        height: 70vh;
+        right: -38px;
+    }
+    .rightPanel .brushElem,
+    .rightPanel .brushElem:hover,
+    .rightPanel .brushElem:active {
+        background-position: 35px -38px;
+    }
+    .rightPanel .coloring,
+    .rightPanel .coloring:hover,
+    .rightPanel .coloring:active {
+        background-position: 35px -3px;
+    }
+    .bottomPanel {
+        width: calc(75vw + 36px);
+        bottom: -73px;
+    }
+
+}
+@media screen and (max-width: 420px) {
+    html {
+        font-size: 6px;
+    }
+    h1 {
+        font-size: 30px;
+    }
+    .mainMenu {
+        margin-top: 40%;
+    }
+    .mainMenu span {
+        font-size: 30px;
+    }
+    #ball1,#ball2{
+        width: 70px;
+    }
+    .canvas {
+        width: 75vw;
+        height: 70vh;
+        margin: 0 20% 0 8%;
+    }
+    .canv {
+        width: 75vw;
+        height: 70vh;
+    }
+    .rightPanel .selected {
+        background:  url(../img/tb_36.png) dimgray;
+    }
+    .rightPanel div {
+        width: 36px;
+        height: 36px;
+        background: url("../img/tb_36.png");
+    }
+    .rightPanel div:hover {
+        background:  url(../img/tb_36.png) dimgray;
+    }
+    .rightPanel {
+        height: 70vh;
+        right: -38px;
+    }
+    .rightPanel .brushElem,
+    .rightPanel .brushElem:hover,
+    .rightPanel .brushElem:active {
+        background-position: 35px -38px;
+    }
+    .rightPanel .coloring,
+    .rightPanel .coloring:hover,
+    .rightPanel .coloring:active {
+        background-position: 35px -3px;
+    }
+    .bottomPanel {
+        width: calc(75vw + 36px);
+        bottom: -73px;
+    }
+}
