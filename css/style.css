@@ -16,6 +16,9 @@ html {
     margin: 0;
     /* background-color: antiquewhite; */
 }
+#IPage {
+    margin-top: 2%;
+}
 .mainMenu {
     margin-top: 5%;
     font-family: 'Caveat', cursive;
@@ -88,7 +91,7 @@ html {
 }
 .rightPanel div:hover {
     background:  url(../img/tb_72.png) dimgray;
-    
+    border-radius: 15%;
 }
 .rightPanel .brushElem,
 .rightPanel .brushElem:hover,
@@ -109,6 +112,7 @@ html {
     border: 1px solid black;
     height: 13rem;
     background: beige;
+    overflow-y: auto;
 }
 .bottomPanel div {
     width: 5rem;
@@ -120,4 +124,5 @@ html {
 .bottomPanel div:hover {
     background:  url(../img/all-brushes.png) dimgray;
     background-size: cover;
+    border-radius: 15%;
 }

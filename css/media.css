@@ -48,6 +48,9 @@
     h1 {
         font-size: 45px;
     }
+    #IPage {
+        margin-top: 5%;
+    }
     .mainMenu {
         margin-top: 35%;
     }
@@ -103,6 +106,9 @@
     }
     h1 {
         font-size: 30px;
+    }
+    #IPage {
+        margin-top: 5%;
     }
     .mainMenu {
         margin-top: 40%;
