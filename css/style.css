@@ -72,10 +72,12 @@ html {
 }
 .rightPanel .selected {
     background:  url(../img/tb_72.png) dimgray;
+    border-radius: 15%;
 }
 .bottomPanel .selected {
     background:  url(../img/all-brushes.png) dimgray;
     background-size: cover;
+    border-radius: 15%;
 }
 .rightPanel {
     position: absolute;
