@@ -16,13 +16,45 @@ function PaintView() {
         DrawCanvasHeight = DrawCanvas.offsetHeight;
         DrawCanvas.width = DrawCanvasWidth;
         DrawCanvas.height = DrawCanvasHeight;
-        DrawContext = DrawCanvas.getContext('2d');
         DrawCanvas = document.getElementById('Canvas');
+        DrawContext = DrawCanvas.getContext('2d');
         DrawContext = DrawCanvas.getContext('2d');
         DrawBackCanvas = document.getElementById('Canvas1');
         DrawBackCanvas.width = DrawCanvas.width;
         DrawBackCanvas.height = DrawCanvas.height;
         DrawBackContext = DrawBackCanvas.getContext('2d');
+        DrawContext.fillStyle = "rgba(255,255,255,255)";
+        DrawContext.fillRect(0, 0, DrawCanvasWidth, DrawCanvasHeight);
+        
+        var img = document.createElement('img');
+        img.src = 'img/111.png';
+        // var DrawCanvas = document.getElementById('Canvas');
+        // var DrawContext = DrawCanvas.getContext('2d');
+        DrawCanvas.classList.remove('canv');
+        DrawCanvas.classList.add('canv1');
+        DrawBackCanvas.classList.remove('canv');
+        DrawBackCanvas.classList.add('canv1');
+        img.addEventListener('load', drawImg, false);
+        function drawImg() {
+            var prop = img.height/img.width;
+            var can = document.getElementsByClassName('canvas');
+            img.style.width = '200px';
+            img.style.height = '200px';
+            DrawCanvasWidth = img.width;
+            DrawCanvasHeight = img.height;
+            DrawCanvas.width = img.width;
+            DrawCanvas.height = img.height;
+            DrawBackCanvas.width = img.width;
+            DrawBackCanvas.height = img.height;
+            console.log(can[0].offsetWidth,can[0].offsetHeight);
+            console.log(img.width,img.height);
+            console.log(DrawCanvas.width,DrawCanvas.height);
+            DrawContext.drawImage(img, 0, 0, img.width, img.height);
+            DrawBackContext.drawImage(DrawCanvas, 0, 0);
+            DrawBackContext.globalAlpha = 1;
+            DrawContext.globalCompositeOperation = 'destination-out';
+            DrawContext.globalCompositeOperation = 'source-over';
+        }
     };
     this.brushBegin = function (CoordsH) {
         DrawContext.lineCap = 'round';
@@ -48,15 +80,19 @@ function PaintView() {
         DrawContext.stroke();
     };
     this.coloring = function (CoordsH) {
-        var x = CoordsH.X;
-        var y = CoordsH.Y;
+        var x = event.offsetX;
+        var y = event.offsetY;
+        DrawCanvas = document.getElementById('Canvas');
+        DrawContext = DrawCanvas.getContext('2d');
         var imageData = DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight);
+        console.log(x,y);
         var width = imageData.width;
         var height = imageData.height;
         var stack = [[x, y]];
         var pixel;
         var point = 0;
         var firstPixel = DrawContext.getImageData(x, y, 1, 1).data;
+        // console.log(firstPixel);
         var paintColor = hex2rgb(myModel.currentBrush.color, myModel.currentBrush.opacity);
         if (paintColor[0] !== firstPixel[0] || paintColor[1] !== firstPixel[1] || paintColor[2] !== firstPixel[2]) {
             while (stack.length > 0) {
@@ -67,9 +103,11 @@ function PaintView() {
                 if (pixel[1] < 0 || pixel[1] >= height)
                     continue;
                 // Alpha
-                point = pixel[1] * 4 * width + pixel[0] * 4;
+                point = Math.round(pixel[1] * 4 * width + pixel[0] * 4);
+                // console.log(pixel);
                 // Если это не рамка и ещё не закрасили
-                if (imageData.data[point] == firstPixel[0] && imageData.data[point + 1] == firstPixel[1] && imageData.data[point + 2] == firstPixel[2] && imageData.data[point + 3] == firstPixel[3]) {
+                // console.log(imageData.data[point], firstPixel[0]);
+                if (imageData.data[point] == firstPixel[0] && imageData.data[point + 1] == firstPixel[1] && imageData.data[point + 2] == firstPixel[2]) {
                     // Закрашиваем
                     imageData.data[point] = paintColor[0];
                     imageData.data[point + 1] = paintColor[1];
@@ -95,6 +133,7 @@ function PaintView() {
                 }
             }
             DrawContext.putImageData(imageData, 0, 0);
+            // console.log(imageData.data);
         }
     };
     function hex2rgb(hex, opacity) {
