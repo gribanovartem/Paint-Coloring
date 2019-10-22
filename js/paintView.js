@@ -13,6 +13,7 @@ function PaintView() {
 
     };
     this.brushBegin = function(CoordsH) {
+        console.log(myModel.currentBrush);
         DrawContext.lineCap = 'round';
         DrawContext.lineJoin = 'round';
         DrawContext.lineWidth = myModel.currentBrush.radius * 2;

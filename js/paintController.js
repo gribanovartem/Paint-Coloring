@@ -17,6 +17,7 @@ function PaintController() {
         brushControl.addEventListener('click', changeControlToBrush, false);
         coloringControl.addEventListener('click', changeControlToColoring, false);
         radiusControl.addEventListener('mouseup', changeRadius, false);
+        radiusControl.addEventListener('touchend', changeRadius, false);
         function changeColor(EO) {
             let elemDeleteClass = bottomPanel.getElementsByClassName('selected');
             if(elemDeleteClass[0]) {
@@ -46,8 +47,9 @@ function PaintController() {
             myModel.updateBrush(true);
         }
         function changeRadius(EO) {
+            console.log('dfhgsdh');
             let Elem = EO.target;
-            let value = Elem.value;
+            let value = +Elem.value;
             myModel.updateRadius(value);
         }
         function EventToDrawCoords(CoordsH) {
@@ -80,7 +82,7 @@ function PaintController() {
         }
         //Добавляем тач-обработчики событий для холста
         DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
-        document.addEventListener('touchend',BrushTouchEnd,false);
+        DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
         function BrushTouchBegin(EO) {
             EO.preventDefault();
             var Touch=EO.changedTouches[0];

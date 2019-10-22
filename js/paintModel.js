@@ -3,7 +3,7 @@ function PaintModel() {
     
     this.currentBrush = {
         color: '#000000',
-        radius: 8,
+        radius: 5,
         coloring: false
       };
     
