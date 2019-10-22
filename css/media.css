@@ -19,6 +19,9 @@
     h1 {
         font-size: 55px;
     }
+    .canvas {
+        top: 15%;
+    }
     .mainMenu {
         margin-top: 25%;
     }
@@ -52,6 +55,7 @@
         width: 100px;
     }
     .canvas {
+        top: 10%;
         width: 75vw;
         height: 70vh;
         margin: 0 20% 0 8%;

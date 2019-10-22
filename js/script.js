@@ -1,7 +1,11 @@
+var ColoringSoundModel = new SoundModel();
+var ColoringSoundView = new SoundView();
 var paint = new PaintModel();
 var paintView = new PaintView();
-var containerElem = document.getElementById('Canvas');
 var paintController = new PaintController();
-// paint.start(paintView);
-// paintView.start(paint, containerElem);
-// paintController.start(paint, containerElem);
+var BrushSoundModel = new SoundModel();
+var BrushSoundView = new SoundView();
+var BrushSoundController = new SoundController();
+var MenuSoundModel = new SoundModel();
+var MenuSoundView = new SoundView();
+var MenuSoundController = new SoundController();

@@ -4,7 +4,8 @@ function PaintModel() {
     this.currentBrush = {
         color: '#000000',
         radius: 5,
-        coloring: false
+        coloring: false,
+        opacity: 1
       };
     
     this.start = function(view) {
@@ -27,5 +28,8 @@ function PaintModel() {
     };
     this.brushMove = function (CoordsH) {
       myView.brushMove(CoordsH);
+    };
+    this.coloring = function(CoordsH) {
+      myView.coloring(CoordsH);
     };
 }

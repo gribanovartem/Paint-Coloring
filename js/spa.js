@@ -55,16 +55,23 @@
         mainMenu[0].addEventListener('click',switchToPaintPage);
         mainMenu[1].addEventListener('click',switchToSelectImgPage);
         mainMenu[2].addEventListener('click',switchToLoadPage);
+        var menuToSound = document.getElementsByClassName('menuItem');
+        MenuSoundModel.start(MenuSoundView,'sound/click.mp3');
+        MenuSoundView.start(MenuSoundModel);
+        MenuSoundController.start(MenuSoundModel, menuToSound);
     }
     function dataLoaded1(data) {
       document.getElementById('IPage').innerHTML=data;
-      var paint = new PaintModel();
-      var paintView = new PaintView();
+      ColoringSoundModel.start(ColoringSoundView,'sound/coloring.mp3');
+      ColoringSoundView.start(ColoringSoundModel);
       var containerElem = document.getElementById('Canvas');
-      var paintController = new PaintController();
       paint.start(paintView);
       paintView.start(paint, containerElem);
       paintController.start(paint, containerElem);
+      var brushToSound = document.getElementsByClassName('brush');
+      BrushSoundModel.start(BrushSoundView,'sound/brush.mp3');
+      BrushSoundView.start(BrushSoundModel);
+      BrushSoundController.start(BrushSoundModel, brushToSound);
     }
     function errorHandler(jqXHR,statusStr,errorStr) {
         alert(statusStr+' '+errorStr);

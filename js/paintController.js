@@ -36,6 +36,11 @@ function PaintController() {
             }
             Elem.classList.add('selected');
             myModel.updateBrush(false);
+            DrawCanvas.removeEventListener('click', Coloring, false);
+            DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
+            container.addEventListener('mouseup', BrushMouseEnd, false);
+            DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
+            DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
         }
         function changeControlToColoring(EO) {
             let Elem = EO.target;
@@ -45,9 +50,10 @@ function PaintController() {
             }
             Elem.classList.add('selected');
             myModel.updateBrush(true);
+            removeEventToBrush();
+            addEventToColoring();
         }
         function changeRadius(EO) {
-            console.log('dfhgsdh');
             let Elem = EO.target;
             let value = +Elem.value;
             myModel.updateRadius(value);
@@ -59,10 +65,11 @@ function PaintController() {
             var DrawY = DrawCanvas.height * PercY;
             return { X: DrawX, Y: DrawY };
          }
-        //Добавляем обработчики событий для холста
+        //Добавляем обработчики событий для холста для рисования
         var DrawCanvas = document.getElementById('Canvas');
+        var container = document.getElementsByClassName('container')[0];
         DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
-        document.addEventListener('mouseup', BrushMouseEnd, false);
+        container.addEventListener('mouseup', BrushMouseEnd, false);
         function BrushMouseBegin(EO) {
             EO.preventDefault();
             var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
@@ -80,7 +87,7 @@ function PaintController() {
             myModel.brushEnd(DrawCoordsH);
             DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
         }
-        //Добавляем тач-обработчики событий для холста
+        //Добавляем тач-обработчики событий для холста ждя рисования
         DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
         DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
         function BrushTouchBegin(EO) {
@@ -102,6 +109,23 @@ function PaintController() {
             var DrawCoordsH=EventToDrawCoords( { X:Touch.pageX, Y:Touch.pageY } );
             myModel.brushEnd(DrawCoordsH);
             DrawCanvas.removeEventListener('touchmove',BrushTouchMove,false);
+        }
+        function addEventToColoring() {
+            DrawCanvas.addEventListener('click', Coloring, false);
+        }
+        function Coloring(EO) {
+            EO.preventDefault();
+            var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
+            myModel.coloring(DrawCoordsH);
+            ColoringSoundModel.play();
+        }
+        function removeEventToBrush() {
+            DrawCanvas.removeEventListener('mousedown', BrushMouseBegin, false);
+            document.removeEventListener('mouseup', BrushMouseEnd, false);
+            // DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
+            DrawCanvas.removeEventListener('touchstart',BrushTouchBegin,false);
+            DrawCanvas.removeEventListener('touchend',BrushTouchEnd,false);
+            // DrawCanvas.removeEventListener('touchmove',BrushTouchMove,false);
         }
     };
 }
