@@ -27,6 +27,9 @@ function PaintController() {
             let elemColor = Elem.getAttribute('data-color');
             Elem.classList.add('selected');
             myModel.updateColor(elemColor);
+            if("vibrate" in navigator) {
+                window.navigator.vibrate(500);
+            }
         }
         function changeControlToBrush(EO) {
             let Elem = EO.target;

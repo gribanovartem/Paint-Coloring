@@ -48,9 +48,6 @@ function PaintView() {
         DrawContext.stroke();
     };
     this.coloring = function (CoordsH) {
-        // DrawCanvas = document.getElementById('Canvas');
-        // DrawContext = DrawCanvas.getContext('2d');
-        console.time();
         var x = CoordsH.X;
         var y = CoordsH.Y;
         var imageData = DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight);
@@ -71,12 +68,9 @@ function PaintView() {
                     continue;
                 // Alpha
                 point = pixel[1] * 4 * width + pixel[0] * 4;
-
                 // Если это не рамка и ещё не закрасили
                 if (imageData.data[point] == firstPixel[0] && imageData.data[point + 1] == firstPixel[1] && imageData.data[point + 2] == firstPixel[2] && imageData.data[point + 3] == firstPixel[3]) {
-
                     // Закрашиваем
-
                     imageData.data[point] = paintColor[0];
                     imageData.data[point + 1] = paintColor[1];
                     imageData.data[point + 2] = paintColor[2];
@@ -101,7 +95,6 @@ function PaintView() {
                 }
             }
             DrawContext.putImageData(imageData, 0, 0);
-            console.timeEnd();
         }
     };
     function hex2rgb(hex, opacity) {

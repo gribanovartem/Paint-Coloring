@@ -25,6 +25,9 @@ html {
 #IPage {
     margin-top: 2%;
 }
+#Canvas {
+    transform: translateZ(0);
+}
 .mainMenu {
     margin-top: 5%;
     font-family: 'Caveat', cursive;
