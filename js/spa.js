@@ -92,15 +92,27 @@
     // т.к. закладка УРЛа изменилась (ЕСЛИ она действительно изменилась)
   }
   function switchToMainPage() {
+    if("vibrate" in navigator) {
+      window.navigator.vibrate(100);
+    }
     switchToState( { pagename:'Main' } );
   }
   function switchToPaintPage() {
+    if("vibrate" in navigator) {
+      window.navigator.vibrate(100);
+    }
     switchToState( { pagename:'Paint' } );
   }
   function switchToSelectImgPage() {
+    if("vibrate" in navigator) {
+      window.navigator.vibrate(100);
+    }
     switchToState( { pagename:'SelectImg' } );
   }
   function switchToLoadPage() {
+    if("vibrate" in navigator) {
+      window.navigator.vibrate(100);
+    }
     switchToState( { pagename:'Load' } );
   }
 

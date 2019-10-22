@@ -28,7 +28,7 @@ function PaintController() {
             Elem.classList.add('selected');
             myModel.updateColor(elemColor);
             if("vibrate" in navigator) {
-                window.navigator.vibrate(500);
+                window.navigator.vibrate(100);
             }
         }
         function changeControlToBrush(EO) {
@@ -44,6 +44,9 @@ function PaintController() {
             container.addEventListener('mouseup', BrushMouseEnd, false);
             DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
             DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
+            if("vibrate" in navigator) {
+                window.navigator.vibrate(100);
+            }
         }
         function changeControlToColoring(EO) {
             let Elem = EO.target;
@@ -55,6 +58,9 @@ function PaintController() {
             myModel.updateBrush(true);
             removeEventToBrush();
             addEventToColoring();
+            if("vibrate" in navigator) {
+                window.navigator.vibrate(100);
+            }
         }
         function changeRadius(EO) {
             let Elem = EO.target;
@@ -123,14 +129,15 @@ function PaintController() {
             var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
             myModel.coloring(DrawCoordsH);
             ColoringSoundModel.play();
+            if("vibrate" in navigator) {
+                window.navigator.vibrate(100);
+            }
         }
         function removeEventToBrush() {
             DrawCanvas.removeEventListener('mousedown', BrushMouseBegin, false);
             document.removeEventListener('mouseup', BrushMouseEnd, false);
-            // DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
             DrawCanvas.removeEventListener('touchstart',BrushTouchBegin,false);
             DrawCanvas.removeEventListener('touchend',BrushTouchEnd,false);
-            // DrawCanvas.removeEventListener('touchmove',BrushTouchMove,false);
         }
     };
 }
