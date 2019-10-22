@@ -5,13 +5,17 @@ function PaintView() {
     var DrawCanvas = null;
     var DrawBackCanvas = null;
     var DrawBackContext = null;
+    var DrawCanvasWidth = null;
+    var DrawCanvasHeight = null;
 
     this.start = function (model, field) {
         myModel = model;
         myField = field;
         DrawCanvas = field;
-        DrawCanvas.width = DrawCanvas.offsetWidth;
-        DrawCanvas.height = DrawCanvas.offsetHeight;
+        DrawCanvasWidth = DrawCanvas.offsetWidth;
+        DrawCanvasHeight = DrawCanvas.offsetHeight;
+        DrawCanvas.width = DrawCanvasWidth;
+        DrawCanvas.height = DrawCanvasHeight;
         DrawContext = DrawCanvas.getContext('2d');
         DrawCanvas = document.getElementById('Canvas');
         DrawContext = DrawCanvas.getContext('2d');
@@ -44,16 +48,18 @@ function PaintView() {
         DrawContext.stroke();
     };
     this.coloring = function (CoordsH) {
-        DrawCanvas = document.getElementById('Canvas');
-        DrawContext = DrawCanvas.getContext('2d');
-
-        var imageData = DrawContext.getImageData(0, 0, DrawCanvas.width, DrawCanvas.height);
+        // DrawCanvas = document.getElementById('Canvas');
+        // DrawContext = DrawCanvas.getContext('2d');
+        console.time();
+        var x = CoordsH.X;
+        var y = CoordsH.Y;
+        var imageData = DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight);
         var width = imageData.width;
         var height = imageData.height;
-        var stack = [[CoordsH.X, CoordsH.Y]];
+        var stack = [[x, y]];
         var pixel;
         var point = 0;
-        var firstPixel = DrawContext.getImageData(CoordsH.X, CoordsH.Y, 1, 1).data;
+        var firstPixel = DrawContext.getImageData(x, y, 1, 1).data;
         var paintColor = hex2rgb(myModel.currentBrush.color, myModel.currentBrush.opacity);
         if (paintColor[0] !== firstPixel[0] || paintColor[1] !== firstPixel[1] || paintColor[2] !== firstPixel[2]) {
             while (stack.length > 0) {
@@ -95,6 +101,7 @@ function PaintView() {
                 }
             }
             DrawContext.putImageData(imageData, 0, 0);
+            console.timeEnd();
         }
     };
     function hex2rgb(hex, opacity) {

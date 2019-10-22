@@ -75,6 +75,7 @@ function PaintController() {
             var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
             DrawCanvas.addEventListener('mousemove', BrushMouseMove, false);
             myModel.brushBegin(DrawCoordsH);
+            ToBrushSoundModel.play();
         }
         function BrushMouseMove(EO) {
             EO.preventDefault();
@@ -95,6 +96,7 @@ function PaintController() {
             var Touch=EO.changedTouches[0];
             var DrawCoordsH=EventToDrawCoords( { X:Touch.pageX, Y:Touch.pageY } );
             myModel.brushBegin(DrawCoordsH);
+            ToBrushSoundModel.play();
             DrawCanvas.addEventListener('touchmove',BrushTouchMove,false);
         }
         function BrushTouchMove(EO) {

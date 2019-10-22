@@ -1,5 +1,7 @@
 var ColoringSoundModel = new SoundModel();
 var ColoringSoundView = new SoundView();
+var ToBrushSoundModel = new SoundModel();
+var ToBrushgSoundView = new SoundView();
 var paint = new PaintModel();
 var paintView = new PaintView();
 var paintController = new PaintController();

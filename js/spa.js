@@ -64,6 +64,8 @@
       document.getElementById('IPage').innerHTML=data;
       ColoringSoundModel.start(ColoringSoundView,'sound/coloring.mp3');
       ColoringSoundView.start(ColoringSoundModel);
+      ToBrushSoundModel.start(ToBrushgSoundView,'sound/paint.mp3');
+      ToBrushgSoundView.start(ToBrushSoundModel);
       var containerElem = document.getElementById('Canvas');
       paint.start(paintView);
       paintView.start(paint, containerElem);
