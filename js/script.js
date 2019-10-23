@@ -11,3 +11,6 @@ var BrushSoundController = new SoundController();
 var MenuSoundModel = new SoundModel();
 var MenuSoundView = new SoundView();
 var MenuSoundController = new SoundController();
+var sliderModel = new SliderModel();
+var sliderView = new SliderView();
+var sliderController = new SliderController();

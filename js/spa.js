@@ -41,8 +41,9 @@
             
         break;
       case 'SelectImg':
-        pageHTML+="<h3>О нас</h3>";
-        pageHTML+="<p>Мы круты!</p>";
+            $.ajax("html/slider.html",
+              { type:'GET', dataType:'html', success:dataLoaded2, error:errorHandler }
+            );
         break;
       case 'Load':
         pageHTML+="<h3>О нас</h3>";
@@ -74,6 +75,14 @@
       BrushSoundModel.start(BrushSoundView,'sound/brush.mp3');
       BrushSoundView.start(BrushSoundModel);
       BrushSoundController.start(BrushSoundModel, brushToSound);
+    }
+    function dataLoaded2(data) {
+      document.getElementById('IPage').innerHTML=data;
+      let slideWrapper = document.getElementsByClassName('slider__wrapper')[0];
+      let mainSlider = document.getElementById('Slider');
+      sliderModel.start(sliderView, ['img/111.png','img/5914.gif','img/avto.svg']);
+      sliderView.start(sliderModel, slideWrapper,mainSlider);
+      sliderController.start(sliderModel, mainSlider);
     }
     function errorHandler(jqXHR,statusStr,errorStr) {
         alert(statusStr+' '+errorStr);
