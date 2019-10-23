@@ -1,9 +1,11 @@
 function PaintController() {
     var myModel = null;
     var myField = null;
-    this.start = function(model,field) {
-        myModel=model;
-        myField=field;
+    var self = this;
+    var DrawCanvas = null;
+    this.start = function (model, field) {
+        myModel = model;
+        myField = field;
         //Добавляем обработчики событий для панелей
         var allBrushes = document.getElementsByClassName('brush');
         var brushControl = document.getElementsByClassName('brushElem')[0];
@@ -11,7 +13,7 @@ function PaintController() {
         var bottomPanel = document.getElementsByClassName('bottomPanel')[0];
         var rightPanel = document.getElementsByClassName('rightPanel')[0];
         var radiusControl = document.getElementById('InputId');
-        for(let i=0; i<allBrushes.length; i++) {
+        for (let i = 0; i < allBrushes.length; i++) {
             allBrushes[i].addEventListener('click', changeColor, false);
         }
         brushControl.addEventListener('click', changeControlToBrush, false);
@@ -20,21 +22,21 @@ function PaintController() {
         radiusControl.addEventListener('touchend', changeRadius, false);
         function changeColor(EO) {
             let elemDeleteClass = bottomPanel.getElementsByClassName('selected');
-            if(elemDeleteClass[0]) {
+            if (elemDeleteClass[0]) {
                 elemDeleteClass[0].classList.remove('selected');
             }
             let Elem = EO.target;
             let elemColor = Elem.getAttribute('data-color');
             Elem.classList.add('selected');
             myModel.updateColor(elemColor);
-            if("vibrate" in navigator) {
+            if ("vibrate" in navigator) {
                 window.navigator.vibrate(100);
             }
         }
         function changeControlToBrush(EO) {
             let Elem = EO.target;
             let elemDeleteClass = rightPanel.getElementsByClassName('selected');
-            if(elemDeleteClass[0]) {
+            if (elemDeleteClass[0]) {
                 elemDeleteClass[0].classList.remove('selected');
             }
             Elem.classList.add('selected');
@@ -42,23 +44,23 @@ function PaintController() {
             DrawCanvas.removeEventListener('click', Coloring, false);
             DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
             container.addEventListener('mouseup', BrushMouseEnd, false);
-            DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
-            DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
-            if("vibrate" in navigator) {
+            DrawCanvas.addEventListener('touchstart', BrushTouchBegin, false);
+            DrawCanvas.addEventListener('touchend', BrushTouchEnd, false);
+            if ("vibrate" in navigator) {
                 window.navigator.vibrate(100);
             }
         }
         function changeControlToColoring(EO) {
             let Elem = EO.target;
             let elemDeleteClass = rightPanel.getElementsByClassName('selected');
-            if(elemDeleteClass[0]) {
+            if (elemDeleteClass[0]) {
                 elemDeleteClass[0].classList.remove('selected');
             }
             Elem.classList.add('selected');
             myModel.updateBrush(true);
             removeEventToBrush();
             addEventToColoring();
-            if("vibrate" in navigator) {
+            if ("vibrate" in navigator) {
                 window.navigator.vibrate(100);
             }
         }
@@ -73,73 +75,74 @@ function PaintController() {
             var DrawX = DrawCanvas.width * PercX;
             var DrawY = DrawCanvas.height * PercY;
             return { X: DrawX, Y: DrawY };
-         }
-        //Добавляем обработчики событий для холста для рисования
-        var DrawCanvas = document.getElementById('Canvas');
-        var container = document.getElementsByClassName('container')[0];
-        DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
-        DrawCanvas.addEventListener('mouseup', BrushMouseEnd, false);
-        function BrushMouseBegin(EO) {
-            EO.preventDefault();
-            var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
-            DrawCanvas.addEventListener('mousemove', BrushMouseMove, false);
-            myModel.brushBegin(DrawCoordsH);
-            ToBrushSoundModel.play();
-            console.log('sdgdfh');
         }
-        function BrushMouseMove(EO) {
-            EO.preventDefault();
-            var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
-            myModel.brushMove(DrawCoordsH);
+    
+    //Добавляем обработчики событий для холста для рисования
+    DrawCanvas = document.getElementById('Canvas');
+    var container = document.getElementsByClassName('container')[0];
+    DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
+    container.addEventListener('mouseup', BrushMouseEnd, false);
+    function BrushMouseBegin(EO) {
+        EO.preventDefault();
+        var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
+        DrawCanvas.addEventListener('mousemove', BrushMouseMove, false);
+        myModel.brushBegin(DrawCoordsH);
+        ToBrushSoundModel.play();
+    }
+    function BrushMouseMove(EO) {
+        EO.preventDefault();
+        var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
+        myModel.brushMove(DrawCoordsH);
+    }
+    function BrushMouseEnd(EO) {
+        EO.preventDefault();
+        var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
+        myModel.brushEnd(DrawCoordsH);
+
+        DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
+    }
+    //Добавляем тач-обработчики событий для холста ждя рисования
+    DrawCanvas.addEventListener('touchstart', BrushTouchBegin, false);
+    DrawCanvas.addEventListener('touchend', BrushTouchEnd, false);
+    function BrushTouchBegin(EO) {
+        EO.preventDefault();
+        var Touch = EO.changedTouches[0];
+        var DrawCoordsH = EventToDrawCoords({ X: Touch.pageX, Y: Touch.pageY });
+        myModel.brushBegin(DrawCoordsH);
+        ToBrushSoundModel.play();
+        DrawCanvas.addEventListener('touchmove', BrushTouchMove, false);
+    }
+    function BrushTouchMove(EO) {
+        EO.preventDefault();
+        var Touch = EO.changedTouches[0];
+        var DrawCoordsH = EventToDrawCoords({ X: Touch.pageX, Y: Touch.pageY });
+        myModel.brushMove(DrawCoordsH);
+    }
+    function BrushTouchEnd(EO) {
+        EO.preventDefault();
+        var Touch = EO.changedTouches[0];
+        var DrawCoordsH = EventToDrawCoords({ X: Touch.pageX, Y: Touch.pageY });
+        myModel.brushEnd(DrawCoordsH);
+        DrawCanvas.removeEventListener('touchmove', BrushTouchMove, false);
+    }
+    function addEventToColoring() {
+        DrawCanvas.addEventListener('click', Coloring, false);
+    }
+    function Coloring(EO) {
+        EO.preventDefault();
+        var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
+        myModel.coloring(DrawCoordsH);
+        ColoringSoundModel.play();
+        if ("vibrate" in navigator) {
+            window.navigator.vibrate(100);
         }
-        function BrushMouseEnd(EO) {
-            EO.preventDefault();
-            var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
-            myModel.brushEnd(DrawCoordsH);
-            
-            DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
-        }
-        //Добавляем тач-обработчики событий для холста ждя рисования
-        DrawCanvas.addEventListener('touchstart',BrushTouchBegin,false);
-        DrawCanvas.addEventListener('touchend',BrushTouchEnd,false);
-        function BrushTouchBegin(EO) {
-            EO.preventDefault();
-            var Touch=EO.changedTouches[0];
-            var DrawCoordsH=EventToDrawCoords( { X:Touch.pageX, Y:Touch.pageY } );
-            myModel.brushBegin(DrawCoordsH);
-            ToBrushSoundModel.play();
-            DrawCanvas.addEventListener('touchmove',BrushTouchMove,false);
-        }
-        function BrushTouchMove(EO) {
-            EO.preventDefault();
-            var Touch=EO.changedTouches[0];
-            var DrawCoordsH=EventToDrawCoords( { X:Touch.pageX, Y:Touch.pageY } );
-            myModel.brushMove(DrawCoordsH);
-        }
-        function BrushTouchEnd(EO) {
-            EO.preventDefault();
-            var Touch=EO.changedTouches[0];
-            var DrawCoordsH=EventToDrawCoords( { X:Touch.pageX, Y:Touch.pageY } );
-            myModel.brushEnd(DrawCoordsH);
-            DrawCanvas.removeEventListener('touchmove',BrushTouchMove,false);
-        }
-        function addEventToColoring() {
-            DrawCanvas.addEventListener('click', Coloring, false);
-        }
-        function Coloring(EO) {
-            EO.preventDefault();
-            var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
-            myModel.coloring(DrawCoordsH);
-            ColoringSoundModel.play();
-            if("vibrate" in navigator) {
-                window.navigator.vibrate(100);
-            }
-        }
-        function removeEventToBrush() {
-            DrawCanvas.removeEventListener('mousedown', BrushMouseBegin, false);
-            document.removeEventListener('mouseup', BrushMouseEnd, false);
-            DrawCanvas.removeEventListener('touchstart',BrushTouchBegin,false);
-            DrawCanvas.removeEventListener('touchend',BrushTouchEnd,false);
-        }
+    }
+    function removeEventToBrush () {
+        DrawCanvas.removeEventListener('mousedown', BrushMouseBegin, false);
+        container.removeEventListener('mouseup', BrushMouseEnd, false);
+        DrawCanvas.removeEventListener('touchstart', BrushTouchBegin, false);
+        DrawCanvas.removeEventListener('touchend', BrushTouchEnd, false);
+    };
     };
 }
+

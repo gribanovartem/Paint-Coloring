@@ -8,7 +8,7 @@
   // оно происходит при любом виде навигации
   // в т.ч. при нажатии кнопок браузера ВПЕРЁД/НАЗАД
   window.onhashchange=switchToStateFromURLHash;
-
+ 
   // текущее состояние приложения
   // это Model из MVC
   var SPAState={};
@@ -59,6 +59,7 @@
     function dataLoaded(data) {
         document.getElementById('IPage').innerHTML=data;
         var mainMenu = document.getElementsByClassName('menuItem');
+        
         mainMenu[0].addEventListener('click',switchToPaintPage);
         mainMenu[1].addEventListener('click',switchToSelectImgPage);
         mainMenu[2].addEventListener('click',switchToLoadPage);
@@ -69,10 +70,6 @@
     }
     function dataLoaded1(data, src) {
       document.getElementById('IPage').innerHTML=data;
-      // document.getElementById('Clean').addEventListener('click',toClean, false);
-      // function toClean() {
-
-      // }
       ColoringSoundModel.start(ColoringSoundView,'sound/coloring.mp3');
       ColoringSoundView.start(ColoringSoundModel);
       ToBrushSoundModel.start(ToBrushgSoundView,'sound/paint.mp3');
@@ -85,6 +82,7 @@
       BrushSoundModel.start(BrushSoundView,'sound/brush.mp3');
       BrushSoundView.start(BrushSoundModel);
       BrushSoundController.start(BrushSoundModel, brushToSound);
+      // window.onhashchange = paintController.removeEventToBrush;
     }
     function dataLoaded2(data) {
       document.getElementById('IPage').innerHTML=data;

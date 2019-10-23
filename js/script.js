@@ -16,7 +16,6 @@ var sliderView = new SliderView();
 var sliderController = new SliderController();
 function toClean() {
     var URLHash=window.location.hash;
-    console.log(URLHash);
     var containerElem = document.getElementById('Canvas');
     if(URLHash === '#Paint') {
         paintView.start(paint, containerElem);

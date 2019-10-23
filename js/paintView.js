@@ -3,8 +3,6 @@ function PaintView() {
     var myField = null;
     var DrawContext = null;
     var DrawCanvas = null;
-    // var DrawBackCanvas = null;
-    // var DrawBackContext = null;
     var DrawCanvasWidth = null;
     var DrawCanvasHeight = null;
     var stepArr = [];
@@ -21,10 +19,6 @@ function PaintView() {
         DrawCanvas = document.getElementById('Canvas');
         DrawContext = DrawCanvas.getContext('2d');
         DrawContext = DrawCanvas.getContext('2d');
-        // DrawBackCanvas = document.getElementById('Canvas1');
-        // DrawBackCanvas.width = DrawCanvas.width;
-        // DrawBackCanvas.height = DrawCanvas.height;
-        // DrawBackContext = DrawBackCanvas.getContext('2d');
         DrawContext.fillStyle = "rgba(255,255,255,255)";
         DrawContext.fillRect(0, 0, DrawCanvasWidth, DrawCanvasHeight);
         if(src) {
@@ -32,8 +26,6 @@ function PaintView() {
             img.src = src;
             DrawCanvas.classList.remove('canv');
             DrawCanvas.classList.add('canv1');
-            // DrawBackCanvas.classList.remove('canv');
-            // DrawBackCanvas.classList.add('canv1');
             img.addEventListener('load', drawImg, false);
             function drawImg() {
                 var prop = img.height/img.width;
@@ -61,8 +53,10 @@ function PaintView() {
     };
     this.brushEnd = function (CoordsH) {
         DrawContext.stroke();
-        stepArr.push(DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight));
-        step++;
+        if(CoordsH.X<DrawCanvasWidth && CoordsH.X>0 && CoordsH.Y<DrawCanvasHeight && CoordsH.Y>0) {
+            stepArr.push(DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight));
+            step++;
+        }
     };
     this.brushMove = function (CoordsH) {
         DrawContext.lineTo(CoordsH.X, CoordsH.Y);
@@ -123,19 +117,24 @@ function PaintView() {
         }
         
     };
-    console.log(stepArr);
     this.prevStep = function() {
         if(step>1) {
             DrawContext.putImageData(stepArr[step-2], 0, 0);
             step--;
-        }  else {
+        }  else if(step===1) {
             toClean();
+            step--;
         }
     };
     this.nextStep = function() {
-        if(step< stepArr.length) {
+        if(step===0) {
             DrawContext.putImageData(stepArr[step], 0, 0);
             step++;
+        }
+        else if(step< stepArr.length) {
+            step++;
+            DrawContext.putImageData(stepArr[step-1], 0, 0);
+            
         }
     };
     function hex2rgb(hex, opacity) {
