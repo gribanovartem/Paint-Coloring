@@ -7,6 +7,8 @@ function PaintView() {
     // var DrawBackContext = null;
     var DrawCanvasWidth = null;
     var DrawCanvasHeight = null;
+    var stepArr = [];
+    var step = 0;
 
     this.start = function (model, field, src) {
         myModel = model;
@@ -59,6 +61,8 @@ function PaintView() {
     };
     this.brushEnd = function (CoordsH) {
         DrawContext.stroke();
+        stepArr.push(DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight));
+        step++;
     };
     this.brushMove = function (CoordsH) {
         DrawContext.lineTo(CoordsH.X, CoordsH.Y);
@@ -114,6 +118,24 @@ function PaintView() {
                 }
             }
             DrawContext.putImageData(imageData, 0, 0);
+            stepArr.push(DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight));
+            step++;
+        }
+        
+    };
+    console.log(stepArr);
+    this.prevStep = function() {
+        if(step>1) {
+            DrawContext.putImageData(stepArr[step-2], 0, 0);
+            step--;
+        }  else {
+            toClean();
+        }
+    };
+    this.nextStep = function() {
+        if(step< stepArr.length) {
+            DrawContext.putImageData(stepArr[step], 0, 0);
+            step++;
         }
     };
     function hex2rgb(hex, opacity) {

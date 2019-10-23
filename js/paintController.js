@@ -78,13 +78,14 @@ function PaintController() {
         var DrawCanvas = document.getElementById('Canvas');
         var container = document.getElementsByClassName('container')[0];
         DrawCanvas.addEventListener('mousedown', BrushMouseBegin, false);
-        container.addEventListener('mouseup', BrushMouseEnd, false);
+        DrawCanvas.addEventListener('mouseup', BrushMouseEnd, false);
         function BrushMouseBegin(EO) {
             EO.preventDefault();
             var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
             DrawCanvas.addEventListener('mousemove', BrushMouseMove, false);
             myModel.brushBegin(DrawCoordsH);
             ToBrushSoundModel.play();
+            console.log('sdgdfh');
         }
         function BrushMouseMove(EO) {
             EO.preventDefault();
@@ -95,6 +96,7 @@ function PaintController() {
             EO.preventDefault();
             var DrawCoordsH = EventToDrawCoords({ X: EO.pageX, Y: EO.pageY });
             myModel.brushEnd(DrawCoordsH);
+            
             DrawCanvas.removeEventListener('mousemove', BrushMouseMove, false);
         }
         //Добавляем тач-обработчики событий для холста ждя рисования
