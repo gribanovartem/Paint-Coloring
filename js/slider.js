@@ -133,10 +133,10 @@ function SliderView() {
         if (xAbs > 20 || yAbs > 20) {
             if (xAbs > yAbs) {
             if (finalPoint.pageX < initialPoint.pageX){
-                self.transformItem('left');
+                self.transformItem('right');
             }
             else{
-                self.transformItem('right');}
+                self.transformItem('left');}
             }
         }
     };
