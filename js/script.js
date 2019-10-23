@@ -14,3 +14,13 @@ var MenuSoundController = new SoundController();
 var sliderModel = new SliderModel();
 var sliderView = new SliderView();
 var sliderController = new SliderController();
+function toClean() {
+    var URLHash=window.location.hash;
+    console.log(URLHash);
+    var containerElem = document.getElementById('Canvas');
+    if(URLHash === '#Paint') {
+        paintView.start(paint, containerElem);
+    } else {
+        paintView.start(paint, containerElem,selectImg);
+    }
+}

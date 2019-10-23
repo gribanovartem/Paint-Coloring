@@ -13,11 +13,17 @@ function SliderModel() {
             myView.update(EO);
     };
     this.updateViewSlideStart = function (EO) {
-        initialPoint=EO.changedTouches[0];
+        initialPoint = EO.changedTouches[0];
     };
     this.updateViewSlideEnd = function (EO) {
-        finalPoint=EO.changedTouches[0];
-        myView.updateSlide(initialPoint,finalPoint);
+        finalPoint = EO.changedTouches[0];
+        myView.updateSlide(initialPoint, finalPoint);
+    };
+    this.updatePage = function (EO) {
+        if (EO.target.src) {
+            selectImg = EO.target.src;
+            switchToPaintImgPage();
+        }
     };
 }
 function SliderView() {
@@ -49,8 +55,18 @@ function SliderView() {
             myField.appendChild(slideItem);
             let img = document.createElement('img');
             img.src = myModel.imgArr[i];
-            img.height = sliderHeight;
-            slideItem.appendChild(img);
+            img.addEventListener('load', drawImg, false);
+            function drawImg(EO) {
+                var prop = EO.target.height / EO.target.width;
+                if (sliderWidth > sliderHeight) {
+                    EO.target.height = sliderHeight;
+                    EO.target.width = EO.target.height / prop;
+                } else {
+                    EO.target.width = sliderWidth;
+                    EO.target.height = EO.target.width * prop;
+                }
+                slideItem.appendChild(img);
+            }
         }
         mainElement = document.getElementById('Slider'); // основный элемент блока
         sliderWrapper = mainElement.querySelector('.slider__wrapper'); // обертка для .slider-item
@@ -111,7 +127,7 @@ function SliderView() {
                 nextItem = position.getItemMin();
                 items[nextItem].position = position.getMax() + 1;
                 items[nextItem].transform += items.length * 100;
-                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
+                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%) translateZ(0)';
             }
             transform -= step;
         }
@@ -121,22 +137,23 @@ function SliderView() {
                 nextItem = position.getItemMax();
                 items[nextItem].position = position.getMin() - 1;
                 items[nextItem].transform -= items.length * 100;
-                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
+                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%) translateZ(0)';
             }
             transform += step;
         }
         sliderWrapper.style.transform = 'translateX(' + transform + '%)';
     };
-    this.updateSlide = function(initialPoint,finalPoint) {
+    this.updateSlide = function (initialPoint, finalPoint) {
         var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
         var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
         if (xAbs > 20 || yAbs > 20) {
             if (xAbs > yAbs) {
-            if (finalPoint.pageX < initialPoint.pageX){
-                self.transformItem('right');
-            }
-            else{
-                self.transformItem('left');}
+                if (finalPoint.pageX < initialPoint.pageX) {
+                    self.transformItem('right');
+                }
+                else {
+                    self.transformItem('left');
+                }
             }
         }
     };
@@ -152,5 +169,6 @@ function SliderController() {
         controlButtons[1].addEventListener('click', myModel.updateView, false);
         mainElement.addEventListener('touchstart', myModel.updateViewSlideStart, false);
         mainElement.addEventListener('touchend', myModel.updateViewSlideEnd, false);
+        mainElement.addEventListener('click', myModel.updatePage, false);
     };
 }

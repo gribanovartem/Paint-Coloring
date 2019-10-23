@@ -35,7 +35,7 @@
         width: 120px;
     }
     .bottomPanel {
-        bottom: -73px;
+        bottom: -80px;
     }
 }
 @media screen and (max-width: 600px) {
@@ -121,7 +121,7 @@
     }
     .bottomPanel {
         width: calc(75vw + 36px);
-        bottom: -73px;
+        bottom: -80px;
     }
 
 }
@@ -203,6 +203,6 @@
     }
     .bottomPanel {
         width: calc(75vw + 36px);
-        bottom: -73px;
+        bottom: -80px;
     }
 }

@@ -201,10 +201,12 @@ html {
 .slider__wrapper {
     display: flex;
     transition: transform 0.6s ease;
+    height: 100%;
 }
 .slider__item {
     flex: 0 0 100%;
     max-width: 100%;
+    display: flex;
 }
 .slider__control {
     position: absolute;
@@ -252,6 +254,6 @@ html {
     font-size: 100px;
     text-align: center;
     max-width: 100%;
-    margin: 0 auto;
+    margin: auto;
     display: block;
 }

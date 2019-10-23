@@ -3,7 +3,7 @@
   // #Paint - Рисовать с чистого листа
   // #SelectImg - Выбрать картинку
   // #Load - Загрузить
-
+  var selectImg = null;
   // отслеживаем изменение закладки в УРЛе
   // оно происходит при любом виде навигации
   // в т.ч. при нажатии кнопок браузера ВПЕРЁД/НАЗАД
@@ -40,6 +40,12 @@
             );
             
         break;
+        case 'PaintImg':
+            $.ajax("html/paint.html",
+                { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
+            );
+            
+        break;
       case 'SelectImg':
             $.ajax("html/slider.html",
               { type:'GET', dataType:'html', success:dataLoaded2, error:errorHandler }
@@ -61,8 +67,12 @@
         MenuSoundView.start(MenuSoundModel);
         MenuSoundController.start(MenuSoundModel, menuToSound);
     }
-    function dataLoaded1(data) {
+    function dataLoaded1(data, src) {
       document.getElementById('IPage').innerHTML=data;
+      // document.getElementById('Clean').addEventListener('click',toClean, false);
+      // function toClean() {
+
+      // }
       ColoringSoundModel.start(ColoringSoundView,'sound/coloring.mp3');
       ColoringSoundView.start(ColoringSoundModel);
       ToBrushSoundModel.start(ToBrushgSoundView,'sound/paint.mp3');
@@ -83,6 +93,21 @@
       sliderModel.start(sliderView, ['img/111.png','img/5914.gif','img/avto.svg','img/222.png']);
       sliderView.start(sliderModel, slideWrapper,mainSlider);
       sliderController.start(sliderModel, mainSlider);
+    }
+    function dataLoaded3(data) {
+      document.getElementById('IPage').innerHTML=data;
+      ColoringSoundModel.start(ColoringSoundView,'sound/coloring.mp3');
+      ColoringSoundView.start(ColoringSoundModel);
+      ToBrushSoundModel.start(ToBrushgSoundView,'sound/paint.mp3');
+      ToBrushgSoundView.start(ToBrushSoundModel);
+      var containerElem = document.getElementById('Canvas');
+      paint.start(paintView);
+      paintView.start(paint, containerElem,selectImg);
+      paintController.start(paint, containerElem);
+      var brushToSound = document.getElementsByClassName('brush');
+      BrushSoundModel.start(BrushSoundView,'sound/brush.mp3');
+      BrushSoundView.start(BrushSoundModel);
+      BrushSoundController.start(BrushSoundModel, brushToSound);
     }
     function errorHandler(jqXHR,statusStr,errorStr) {
         alert(statusStr+' '+errorStr);
@@ -117,6 +142,12 @@
       window.navigator.vibrate(100);
     }
     switchToState( { pagename:'SelectImg' } );
+  }
+  function switchToPaintImgPage() {
+    if("vibrate" in navigator) {
+      window.navigator.vibrate(100);
+    }
+    switchToState( { pagename:'PaintImg' } );
   }
   function switchToLoadPage() {
     if("vibrate" in navigator) {
