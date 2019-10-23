@@ -2,18 +2,23 @@ function SliderModel() {
     var myView = null;
     var mySrc = null;
     this.imgArr = null;
-    this.start = function(view, arr) {
+    var initialPoint = null;
+    var finalPoint = null;
+    this.start = function (view, arr) {
         myView = view;
         this.imgArr = arr;
     };
-    this.updateView=function(EO) {
-        if ( myView )
-        myView.update(EO);
+    this.updateView = function (EO) {
+        if (myView)
+            myView.update(EO);
     };
-    this.update = function() {
-
+    this.updateViewSlideStart = function (EO) {
+        initialPoint=EO.changedTouches[0];
     };
-
+    this.updateViewSlideEnd = function (EO) {
+        finalPoint=EO.changedTouches[0];
+        myView.updateSlide(initialPoint,finalPoint);
+    };
 }
 function SliderView() {
     var myModel = null;
@@ -32,12 +37,13 @@ function SliderView() {
         items = null, // массив элементов
         interval = null,
         html = null;
-    this.start = function(model, field, slider) {
+    this.start = function (model, field, slider) {
         myModel = model;
         myField = field;
+        var self = this;
         var sliderWidth = slider.offsetWidth;
         var sliderHeight = slider.offsetHeight;
-        for(let i = 0; i<myModel.imgArr.length; i++) {
+        for (let i = 0; i < myModel.imgArr.length; i++) {
             let slideItem = document.createElement('div');
             slideItem.classList.add('slider__item');
             myField.appendChild(slideItem);
@@ -62,78 +68,89 @@ function SliderView() {
         html = mainElement.innerHTML;
         sliderItems.forEach(function (item, index) {
             items.push({ item: item, position: index, transform: 0 });
-          });
+        });
     };
-    this.update = function(EO) {
-        /////////////////////////////////////////////////////////
-        
-var position = {
-    getItemMin: function () {
-      var indexItem = 0;
-      items.forEach(function (item, index) {
-        if (item.position < items[indexItem].position) {
-          indexItem = index;
-        }
-      });
-      return indexItem;
-    },
-    getItemMax: function () {
-      var indexItem = 0;
-      items.forEach(function (item, index) {
-        if (item.position > items[indexItem].position) {
-          indexItem = index;
-        }
-      });
-      return indexItem;
-    },
-    getMin: function () {
-      return items[position.getItemMin()].position;
-    },
-    getMax: function () {
-      return items[position.getItemMax()].position;
-    }
-  }
-
-var transformItem = function (direction) {
-    var nextItem;
-    if (direction === 'right') {
-      positionLeftItem++;
-      if ((positionLeftItem + wrapperWidth / itemWidth - 1) > position.getMax()) {
-        nextItem = position.getItemMin();
-        items[nextItem].position = position.getMax() + 1;
-        items[nextItem].transform += items.length * 100;
-        items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
-      }
-      transform -= step;
-    }
-    if (direction === 'left') {
-      positionLeftItem--;
-      if (positionLeftItem < position.getMin()) {
-        nextItem = position.getItemMax();
-        items[nextItem].position = position.getMin() - 1;
-        items[nextItem].transform -= items.length * 100;
-        items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
-      }
-      transform += step;
-    }
-    sliderWrapper.style.transform = 'translateX(' + transform + '%)';
-  }
-        /////////////////////////////////////////////////////////
+    this.update = function (EO) {
         if (EO.target.classList.contains('slider__control')) {
             EO.preventDefault();
             var direction = EO.target.classList.contains('slider__control_right') ? 'right' : 'left';
-            transformItem(direction);
+            self.transformItem(direction);
+        }
+    };
+    self.position = {
+        getItemMin: function () {
+            var indexItem = 0;
+            items.forEach(function (item, index) {
+                if (item.position < items[indexItem].position) {
+                    indexItem = index;
+                }
+            });
+            return indexItem;
+        },
+        getItemMax: function () {
+            var indexItem = 0;
+            items.forEach(function (item, index) {
+                if (item.position > items[indexItem].position) {
+                    indexItem = index;
+                }
+            });
+            return indexItem;
+        },
+        getMin: function () {
+            return items[position.getItemMin()].position;
+        },
+        getMax: function () {
+            return items[position.getItemMax()].position;
+        }
+    };
+    self.transformItem = function (direction) {
+        var nextItem;
+        if (direction === 'right') {
+            positionLeftItem++;
+            if ((positionLeftItem + wrapperWidth / itemWidth - 1) > self.position.getMax()) {
+                nextItem = position.getItemMin();
+                items[nextItem].position = position.getMax() + 1;
+                items[nextItem].transform += items.length * 100;
+                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
+            }
+            transform -= step;
+        }
+        if (direction === 'left') {
+            positionLeftItem--;
+            if (positionLeftItem < position.getMin()) {
+                nextItem = position.getItemMax();
+                items[nextItem].position = position.getMin() - 1;
+                items[nextItem].transform -= items.length * 100;
+                items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
+            }
+            transform += step;
+        }
+        sliderWrapper.style.transform = 'translateX(' + transform + '%)';
+    };
+    this.updateSlide = function(initialPoint,finalPoint) {
+        var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+        var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+        if (xAbs > 20 || yAbs > 20) {
+            if (xAbs > yAbs) {
+            if (finalPoint.pageX < initialPoint.pageX){
+                self.transformItem('left');
+            }
+            else{
+                self.transformItem('right');}
+            }
         }
     };
 }
 function SliderController() {
     var myModel = null;
     var mainElement = null;
-    this.start = function(model, field) {
+    this.start = function (model, field) {
         myModel = model;
         mainElement = field;
         var controlButtons = document.getElementsByClassName('slider__control');
         controlButtons[0].addEventListener('click', myModel.updateView, false);
         controlButtons[1].addEventListener('click', myModel.updateView, false);
+        mainElement.addEventListener('touchstart', myModel.updateViewSlideStart, false);
+        mainElement.addEventListener('touchend', myModel.updateViewSlideEnd, false);
     };
 }

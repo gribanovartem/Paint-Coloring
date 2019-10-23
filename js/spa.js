@@ -80,7 +80,7 @@
       document.getElementById('IPage').innerHTML=data;
       let slideWrapper = document.getElementsByClassName('slider__wrapper')[0];
       let mainSlider = document.getElementById('Slider');
-      sliderModel.start(sliderView, ['img/111.png','img/5914.gif','img/avto.svg']);
+      sliderModel.start(sliderView, ['img/111.png','img/5914.gif','img/avto.svg','img/222.png']);
       sliderView.start(sliderModel, slideWrapper,mainSlider);
       sliderController.start(sliderModel, mainSlider);
     }
