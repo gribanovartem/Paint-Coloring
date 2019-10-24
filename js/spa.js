@@ -19,9 +19,14 @@
     // (по-хорошему надо ещё убирать восклицательный знак, если есть)
     var stateStr=URLHash.substr(1);
     if(stateStr.indexOf('&')>-1) {
+      console.log(window.location.hostname);
+      console.log(selectImg);
+      var protocol = window.location.protocol;
+      var hostName = window.location.hostname;
       var parts=stateStr.split("&").pop();
-      selectImg = imgStorage.getValue(parts);
-      
+      // selectImg = imgStorage.getValue(parts);
+      selectImg = protocol+'/img/'+parts;
+      console.log(selectImg);
       $.ajax("html/paint.html",
           { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
       );
