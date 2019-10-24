@@ -26,7 +26,7 @@
       var href = window.location.href;
       var parts=stateStr.split("&").pop();
       // selectImg = imgStorage.getValue(parts);
-      selectImg = pathName+'/img/'+parts;
+      selectImg = href+'/img/'+parts;
       console.log(href);
       $.ajax("html/paint.html",
           { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
