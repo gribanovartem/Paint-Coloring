@@ -23,9 +23,10 @@
       console.log(selectImg);
       var protocol = window.location.protocol;
       var hostName = window.location.hostname;
+      var pathName = window.location.pathname;
       var parts=stateStr.split("&").pop();
       // selectImg = imgStorage.getValue(parts);
-      selectImg = hostName+'/img/'+parts;
+      selectImg = pathName+'/img/'+parts;
       console.log(selectImg);
       $.ajax("html/paint.html",
           { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
