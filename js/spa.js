@@ -23,11 +23,11 @@
       console.log(selectImg);
       var protocol = window.location.protocol;
       var hostName = window.location.hostname;
-      var pathName = window.location.pathname;
+      var href = window.location.href;
       var parts=stateStr.split("&").pop();
       // selectImg = imgStorage.getValue(parts);
       selectImg = pathName+'/img/'+parts;
-      console.log(selectImg);
+      console.log(href);
       $.ajax("html/paint.html",
           { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
       );
