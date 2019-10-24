@@ -10,6 +10,12 @@ function PaintModel() {
     
     this.start = function(view) {
       myView = view;
+      this.currentBrush = {
+        color: '#000000',
+        radius: 5,
+        coloring: false,
+        opacity: 1
+      };
     };
     this.updateColor = function(color) {
       this.currentBrush.color = color;

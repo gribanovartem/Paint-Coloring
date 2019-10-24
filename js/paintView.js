@@ -42,6 +42,7 @@ function PaintView() {
         }
     };
     this.brushBegin = function (CoordsH) {
+        unsaved = true;
         DrawContext.lineCap = 'round';
         DrawContext.lineJoin = 'round';
         DrawContext.lineWidth = myModel.currentBrush.radius * 2;
@@ -52,7 +53,6 @@ function PaintView() {
         DrawContext.stroke();
     };
     this.brushEnd = function (CoordsH) {
-        DrawContext.stroke();
         if(CoordsH.X<DrawCanvasWidth && CoordsH.X>0 && CoordsH.Y<DrawCanvasHeight && CoordsH.Y>0) {
             stepArr.push(DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight));
             step++;
@@ -63,6 +63,7 @@ function PaintView() {
         DrawContext.stroke();
     };
     this.coloring = function (CoordsH) {
+        unsaved = true;
         var x = event.offsetX;
         var y = event.offsetY;
         DrawCanvas = document.getElementById('Canvas');

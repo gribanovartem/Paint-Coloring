@@ -1,7 +1,15 @@
 <div class="container">
+    <div class="saveWindow">
+        <span class="cross" onclick="setInVisible()">&#10006;</span>
+        <h2>Введите имя файла для сохранения</h2>
+        <input type="text" class="text">
+        <input type="button" value="Сохранить" class="save" onclick="savePicture()">
+    </div>
+    <div class="bgLayer" onclick="setInVisible()"></div>
     <div class="canvas">
         <canvas id='Canvas1' class="canv"></canvas>
         <canvas id='Canvas' class="canv"></canvas>
+
         <div class="rightPanel">
             <div class="brushElem selected"></div>
             <div class="coloring"></div>
@@ -16,7 +24,8 @@
             </div>
             <div class="prevStep" onclick="paintView.prevStep()"></div>
             <div class="nextStep" onclick="paintView.nextStep()"></div>
-            <div class="save"></div>
+            <div class="save" onclick="setVisible()"></div>
+
         </div>
         <div class="bottomPanel">
             <div class="brush selected" data-color="#000000" data-pos-x="-0rem"

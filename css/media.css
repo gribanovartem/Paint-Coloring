@@ -37,6 +37,11 @@
     .bottomPanel {
         bottom: -80px;
     }
+    .saveWindow {
+        width: 72vw;
+        height: 45vh;
+        left: 11%;
+    }
 }
 @media screen and (max-width: 600px) {
     html {
@@ -123,6 +128,11 @@
         width: calc(75vw + 36px);
         bottom: -80px;
     }
+    .saveWindow {
+        width: 72vw;
+        height: 45vh;
+        left: 11%;
+    }
 
 }
 @media screen and (max-width: 420px) {
@@ -196,13 +206,33 @@
     .rightPanel .cancel:active {
         background-position: 37px 286px;
     }
-    .rightPanel .save,
-    .rightPanel .save:hover,
-    .rightPanel .save:active {
-        background-position:  37px -829px;
+    .rightPanel .prevStep,
+    .rightPanel .prevStep:hover,
+    .rightPanel .prevStep:active {
+        background-position:  254px -181px;
+    }
+    .rightPanel .prevStep,
+    .rightPanel .prevStep:hover,
+    .rightPanel .prevStep:active {
+        background-position:  254px -181px;
+    }
+    .rightPanel .nextStep,
+    .rightPanel .nextStep:hover,
+    .rightPanel .nextStep:active {
+        background-position:  254px 251px;
+    }
+    .rightPanel .nextStep,
+    .rightPanel .nextStep:hover,
+    .rightPanel .nextStep:active {
+        background-position:  254px 251px;
     }
     .bottomPanel {
         width: calc(75vw + 36px);
         bottom: -80px;
+    }
+    .saveWindow {
+        width: 72vw;
+        height: 45vh;
+        left: 11%;
     }
 }
