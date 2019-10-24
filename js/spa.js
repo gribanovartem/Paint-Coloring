@@ -24,10 +24,12 @@
       var protocol = window.location.protocol;
       var hostName = window.location.hostname;
       var href = window.location.href;
+      // var href = 'https://gribanovartem.github.io/Paint-Coloring/#PaintImg&111.png';
+      href = href.split('#')[0];
       var parts=stateStr.split("&").pop();
       // selectImg = imgStorage.getValue(parts);
-      selectImg = href+'/img/'+parts;
-      console.log(href);
+      selectImg = href+'img/'+parts;
+      console.log(selectImg);
       $.ajax("html/paint.html",
           { type:'GET', dataType:'html', success:dataLoaded3, error:errorHandler }
       );
