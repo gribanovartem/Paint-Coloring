@@ -22,7 +22,9 @@ function SliderModel() {
     this.updatePage = function (EO) {
         if (EO.target.src) {
             selectImg = EO.target.src;
-            switchToPaintImgPage();
+            var key = getImgName(EO.target.src);
+            imgStorage.addValue(key,EO.target.src);
+            switchToPaintImgPage(key);
         }
     };
 }

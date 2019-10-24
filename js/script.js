@@ -14,6 +14,7 @@ var MenuSoundController = new SoundController();
 var sliderModel = new SliderModel();
 var sliderView = new SliderView();
 var sliderController = new SliderController();
+var imgStorage = new LocStorage('img');
 function toClean() {
     var URLHash=window.location.hash;
     var containerElem = document.getElementById('Canvas');
@@ -22,4 +23,7 @@ function toClean() {
     } else {
         paintView.start(paint, containerElem,selectImg);
     }
+}
+function getImgName(src) {
+    return src.split('\\').pop().split('/').pop();
 }

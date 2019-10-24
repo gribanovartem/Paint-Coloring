@@ -16,12 +16,12 @@ function PaintView() {
         DrawCanvasHeight = DrawCanvas.offsetHeight;
         DrawCanvas.width = DrawCanvasWidth;
         DrawCanvas.height = DrawCanvasHeight;
-        DrawCanvas = document.getElementById('Canvas');
-        DrawContext = DrawCanvas.getContext('2d');
+        // DrawCanvas = document.getElementById('Canvas');
         DrawContext = DrawCanvas.getContext('2d');
         DrawContext.fillStyle = "rgba(255,255,255,255)";
         DrawContext.fillRect(0, 0, DrawCanvasWidth, DrawCanvasHeight);
         if(src) {
+            
             var img = document.createElement('img');
             img.src = src;
             DrawCanvas.classList.remove('canv');
