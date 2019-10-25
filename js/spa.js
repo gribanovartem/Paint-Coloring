@@ -10,7 +10,7 @@ var selectImg = null;
 window.onhashchange = switchToStateFromURLHash;
 var unsaved = false;
 window.onbeforeunload = unloadPage;
-
+var antialiasing = false;
 // текущее состояние приложения
 // это Model из MVC
 var SPAState = {};
@@ -94,6 +94,7 @@ function switchToStateFromURLHash() {
   }
   function dataLoaded1(data) {
     unsaved = false;
+    antialiasing = false;
     document.getElementById('IPage').innerHTML = data;
     ColoringSoundModel.start(ColoringSoundView, 'sound/coloring.mp3');
     ColoringSoundView.start(ColoringSoundModel);
@@ -110,15 +111,18 @@ function switchToStateFromURLHash() {
   }
   function dataLoaded2(data) {
     unsaved = false;
+    antialiasing = true;
     document.getElementById('IPage').innerHTML = data;
     let slideWrapper = document.getElementsByClassName('slider__wrapper')[0];
     let mainSlider = document.getElementById('Slider');
-    sliderModel.start(sliderView, ['img/111.png', 'img/5914.gif', 'img/avto.svg', 'img/222.png']);
+    sliderModel.start(sliderView, ['img/111.png', 'img/avto.svg', 'img/car.jpg', 'img/djerri.jpg', 'img/malyshariki.png',
+     'img/masha.jpg', 'img/trikota.png', 'img/vinni.jpg']);
     sliderView.start(sliderModel, slideWrapper, mainSlider);
     sliderController.start(sliderModel, mainSlider);
   }
   function dataLoaded3(data) {
     unsaved = false;
+    antialiasing = true;
     document.getElementById('IPage').innerHTML = data;
     ColoringSoundModel.start(ColoringSoundView, 'sound/coloring.mp3');
     ColoringSoundView.start(ColoringSoundModel);
