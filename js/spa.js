@@ -148,7 +148,6 @@ function switchToStateFromURLHash() {
       reader.readAsDataURL(file);
       reader.onload = readerEvent => {
         var content = readerEvent.target.result;
-
         selectImg = content;
         imgStorage.addValue('userImg', selectImg);
         switchToUserPaintImgPage('url(' + content + ')');
@@ -165,7 +164,6 @@ function switchToStateFromURLHash() {
         elem.dispatchEvent(evt);
       }
     }
-    console.log(inputImg);
     link.onclick = performClick();
     link.click();
   }

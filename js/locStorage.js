@@ -2,17 +2,12 @@ function LocStorage(name) {
     var self = this;
     self.storage = {};
     self.storage.name = [];
-    if (localStorage.getItem(name)) {
-        self.storage.name = JSON.parse(localStorage.getItem(name));
-    }
+    // if (localStorage.getItem(name)) {
+    //     self.storage.name = JSON.parse(localStorage.getItem(name));
+    // }
     self.addValue = function (key, value) {
-        if (self.storage.name.length!==0) {
-            for (let i = 0; i < self.storage.name.length; i++) {
-                if (key in self.storage.name[i]) {
-                    return;
-                }
-            }
-        }
+        console.log('ghsh');
+        
         self.storage.name.push({ [key]: value });
         localStorage.setItem(name, JSON.stringify(self.storage.name));
     };
