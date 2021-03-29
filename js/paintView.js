@@ -70,8 +70,8 @@ function PaintView() {
     };
     this.coloring = function (CoordsH) {
         unsaved = true;
-        var x = event.offsetX;
-        var y = event.offsetY;
+        var x = CoordsH.X;
+        var y = CoordsH.Y;
         DrawCanvas = document.getElementById('Canvas');
         DrawContext = DrawCanvas.getContext('2d');
         var imageData = DrawContext.getImageData(0, 0, DrawCanvasWidth, DrawCanvasHeight);
